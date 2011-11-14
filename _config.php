@@ -50,3 +50,69 @@ SS_Report::register("SideReport", "SideReport_RecentlyEdited");
 SS_Report::register("SideReport", "SideReport_ToDo");
 if (class_exists('SubsiteReportWrapper')) SS_Report::register('ReportAdmin', 'SubsiteReportWrapper("BrokenLinksReport")',-20);
 else SS_Report::register('ReportAdmin', 'BrokenLinksReport',-20);
+
+// Construct the linking options
+$siteTree = new TreeDropdownField('SiteTreeID', _t('HtmlEditorField.PAGE', "Page"), 'SiteTree', 'ID', 'MenuTitle', true);
+// mimic the SiteTree::getMenuTitle(), which is bypassed when the search is performed
+$siteTree->setSearchFunction(array('HtmlEditorField_Toolbar', 'siteTreeSearchCallback'));
+
+HtmlEditorConfig::get('cms')->addLinkScript('sapphire/javascript/tiny_mce_linking.js');
+HtmlEditorConfig::get('cms')->addLinkOption(new HtmlEditorField_LinkOption(
+	'Internal',
+	'Page on the site',
+	new FieldGroup(
+		$siteTree,
+		new TextField('Anchor', _t('HtmlEditorField.ANCHORVALUE', 'Anchor')),
+		new TextField('LinkText', _t('HtmlEditorField.LINKTEXT', 'Link text')),
+		new TextField('Description', _t('HtmlEditorField.LINKDESCR', 'Link description')),
+		new CheckboxField('TargetBlank', _t('HtmlEditorField.LINKOPENNEWWIN', 'Open link in a new window?'))
+	),
+	10
+));
+
+HtmlEditorConfig::get('cms')->addLinkOption(new HtmlEditorField_LinkOption(
+	'External',
+	'Another website',
+	new FieldGroup(
+		new TextField('Address', _t('HtmlEditorField.URL', 'URL'), 'http://'),
+		new TextField('LinkText', _t('HtmlEditorField.LINKTEXT', 'Link text')),
+		new TextField('Description', _t('HtmlEditorField.LINKDESCR', 'Link description')),
+		new CheckboxField('TargetBlank', _t('HtmlEditorField.LINKOPENNEWWIN', 'Open link in a new window?'))
+	),
+	20
+));
+
+HtmlEditorConfig::get('cms')->addLinkOption(new HtmlEditorField_LinkOption(
+	'Anchor',
+	'Anchor on this page',
+	new FieldGroup(
+		new TextField('Anchor', _t('HtmlEditorField.ANCHORVALUE', 'Anchor')),
+		new TextField('LinkText', _t('HtmlEditorField.LINKTEXT', 'Link text')),
+		new TextField('Description', _t('HtmlEditorField.LINKDESCR', 'Link description')),
+		new CheckboxField('TargetBlank', _t('HtmlEditorField.LINKOPENNEWWIN', 'Open link in a new window?'))
+	),
+	30
+));
+
+HtmlEditorConfig::get('cms')->addLinkOption(new HtmlEditorField_LinkOption(
+	'Email',
+	'Email address',
+	new FieldGroup(
+		new EmailField('Email', _t('HtmlEditorField.EMAIL', 'Email address')),
+		new TextField('LinkText', _t('HtmlEditorField.LINKTEXT', 'Link text')),
+		new TextField('Description', _t('HtmlEditorField.LINKDESCR', 'Link description')),
+		new CheckboxField('TargetBlank', _t('HtmlEditorField.LINKOPENNEWWIN', 'Open link in a new window?'))
+	),
+	40
+));
+HtmlEditorConfig::get('cms')->addLinkOption(new HtmlEditorField_LinkOption(
+	'File',
+	'Download a file',
+	new FieldGroup(
+		new TreeDropdownField('File', _t('HtmlEditorField.FILE', 'File'), 'File', 'ID', 'Title', true),
+		new TextField('LinkText', _t('HtmlEditorField.LINKTEXT', 'Link text')),
+		new TextField('Description', _t('HtmlEditorField.LINKDESCR', 'Link description')),
+		new CheckboxField('TargetBlank', _t('HtmlEditorField.LINKOPENNEWWIN', 'Open link in a new window?'), true)
+	),
+	50	
+));

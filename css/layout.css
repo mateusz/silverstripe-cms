@@ -636,6 +636,18 @@ iframe {
 	font-size: 11px;
 	width: 190px;
 }
+#Form_EditorToolbarLinkForm fieldset div.LinkOptionFieldGroup div.fieldgroupField {
+	margin-bottom: 3px;
+}
+#Form_EditorToolbarLinkForm fieldset div.LinkOptionFieldGroup label {
+	line-height: 1.5em;
+	font-size: 11px;
+	width: 190px;
+}
+#Form_EditorToolbarLinkForm fieldset div#LinkType div.middleColumn {
+	overflow: hidden;
+	width: 98%;
+}
 #Form_EditorToolbarImageForm fieldset div.middleColumn,
 #Form_EditorToolbarFlashForm fieldset div.middleColumn,
 #Form_EditorToolbarLinkForm fieldset div.middleColumn {
@@ -649,7 +661,7 @@ iframe {
 
 #Form_EditorToolbarImageForm fieldset div.fieldgroupField,
 #Form_EditorToolbarFlashForm fieldset div.fieldgroupField,
-#Form_EditorToolbarLinkForm fieldset div.fieldgroupField {
+#Form_EditorToolbarLinkForm fieldset div.fieldgroupField div.fieldgroupField {
 	display: inline;
 }
 
